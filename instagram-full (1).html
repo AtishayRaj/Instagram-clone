@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Instagram</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#fafafa;--white:#fff;--border:#dbdbdb;--text:#262626;--muted:#8e8e8e;
+  --blue:#0095f6;--red:#ff3040;--green:#25d366;
+  --s1:#f09433;--s2:#e6683c;--s3:#dc2743;--s4:#cc2366;--s5:#bc1888;
+  --nav-w:245px;--sidebar-w:320px;
+}
+.dark{
+  --bg:#000;--white:#1a1a1a;--border:#363636;--text:#f5f5f5;--muted:#a8a8a8;
+  --blue:#0095f6;
+}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);transition:background .3s,color .3s;}
+
+/* ===== LOGIN PAGE ===== */
+#loginPage{display:flex;min-height:100vh;align-items:center;justify-content:center;background:var(--bg);}
+.login-wrap{display:flex;gap:32px;align-items:center;}
+.login-mockup{width:380px;display:block;}
+.login-mockup img{width:100%;}
+.login-phone{
+  width:250px;height:480px;
+  background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);
+  border-radius:30px;display:flex;align-items:center;justify-content:center;
+  font-size:5rem;box-shadow:0 20px 60px rgba(0,0,0,0.25);
+  flex-shrink:0;
+}
+.login-box{width:350px;}
+.login-card{background:var(--white);border:1px solid var(--border);padding:36px 40px;margin-bottom:10px;border-radius:2px;}
+.login-logo{font-family:'Pacifico',cursive;font-size:2.2rem;text-align:center;margin-bottom:28px;background:linear-gradient(45deg,var(--s1),var(--s3),var(--s5));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.login-input{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:10px 12px;font-family:'Nunito',sans-serif;font-size:0.82rem;color:var(--text);margin-bottom:8px;outline:none;transition:border .2s;}
+.login-input:focus{border-color:#a8a8a8;}
+.login-btn{width:100%;background:var(--blue);color:#fff;border:none;border-radius:8px;padding:8px;font-family:'Nunito',sans-serif;font-weight:700;font-size:0.88rem;cursor:pointer;margin-top:4px;transition:opacity .2s;}
+.login-btn:hover{opacity:.9;}
+.login-divider{display:flex;align-items:center;gap:12px;margin:16px 0;color:var(--muted);font-size:0.78rem;font-weight:700;}
+.login-divider::before,.login-divider::after{content:'';flex:1;height:1px;background:var(--border);}
+.login-fb{display:flex;align-items:center;justify-content:center;gap:8px;color:#385185;font-weight:700;font-size:0.88rem;cursor:pointer;margin-bottom:12px;}
+.login-forgot{text-align:center;font-size:0.75rem;color:var(--blue);cursor:pointer;margin-top:12px;}
+.login-signup-card{background:var(--white);border:1px solid var(--border);padding:20px;text-align:center;font-size:0.88rem;border-radius:2px;}
+.login-signup-card a{color:var(--blue);font-weight:700;cursor:pointer;text-decoration:none;}
+.login-apps{text-align:center;margin-top:20px;font-size:0.82rem;color:var(--text);}
+.app-btns{display:flex;gap:8px;justify-content:center;margin-top:8px;}
+.app-btn{border:1px solid #a2a2a2;border-radius:6px;padding:6px 12px;font-size:0.75rem;font-weight:700;cursor:pointer;color:var(--text);}
+
+/* ===== MAIN APP ===== */
+#app{display:none;min-height:100vh;}
+
+/* LEFT NAV */
+.leftnav{
+  position:fixed;left:0;top:0;bottom:0;width:var(--nav-w);
+  background:var(--white);border-right:1px solid var(--border);
+  padding:8px 12px;z-index:200;
+  display:flex;flex-direction:column;gap:4px;
+  transition:width .3s;
+}
+.nav-logo{font-family:'Pacifico',cursive;font-size:1.5rem;padding:18px 12px 24px;background:linear-gradient(45deg,var(--s1),var(--s3),var(--s5));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;cursor:pointer;}
+.nav-item{
+  display:flex;align-items:center;gap:14px;
+  padding:12px;border-radius:8px;cursor:pointer;
+  font-size:0.95rem;font-weight:500;color:var(--text);
+  transition:background .15s;position:relative;
+  text-decoration:none;
+}
+.nav-item:hover{background:var(--bg);}
+.nav-item.active{font-weight:700;}
+.nav-icon{font-size:1.4rem;flex-shrink:0;}
+.nav-badge{position:absolute;left:28px;top:8px;background:var(--red);color:#fff;border-radius:50%;width:18px;height:18px;font-size:0.6rem;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid var(--white);}
+.nav-spacer{flex:1;}
+.nav-user{display:flex;align-items:center;gap:10px;padding:12px;border-radius:8px;cursor:pointer;margin-top:4px;}
+.nav-user:hover{background:var(--bg);}
+.nav-avatar{width:26px;height:26px;border-radius:50%;background:#efefef;display:flex;align-items:center;justify-content:center;font-size:0.9rem;border:1px solid var(--border);}
+
+/* PAGES */
+.page{display:none;margin-left:var(--nav-w);min-height:100vh;}
+.page.active{display:block;}
+
+/* ===== FEED PAGE ===== */
+.feed-layout{max-width:630px;margin:0 auto;padding:30px 20px;}
+
+/* Stories */
+.stories-card{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:14px 16px;margin-bottom:24px;overflow-x:auto;scrollbar-width:none;}
+.stories-card::-webkit-scrollbar{display:none;}
+.stories-row{display:flex;gap:14px;}
+.story-item{display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;flex-shrink:0;}
+.story-ring{width:60px;height:60px;border-radius:50%;background:linear-gradient(45deg,var(--s1),var(--s2),var(--s3),var(--s4),var(--s5));padding:2.5px;transition:transform .2s;}
+.story-ring:hover{transform:scale(1.06);}
+.story-ring.seen{background:var(--border);}
+.story-inner{width:100%;height:100%;border-radius:50%;border:2.5px solid var(--white);background:#efefef;display:flex;align-items:center;justify-content:center;font-size:1.5rem;}
+.story-name{font-size:0.68rem;color:var(--text);text-align:center;max-width:62px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+
+/* Post */
+.post{background:var(--white);border:1px solid var(--border);border-radius:8px;margin-bottom:24px;}
+.post-header{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;}
+.post-user-info{display:flex;align-items:center;gap:10px;}
+.p-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(45deg,var(--s1),var(--s5));padding:2px;flex-shrink:0;cursor:pointer;}
+.p-avatar .inn{width:100%;height:100%;border-radius:50%;border:2px solid var(--white);background:#efefef;display:flex;align-items:center;justify-content:center;font-size:1rem;}
+.p-name{font-weight:700;font-size:0.88rem;cursor:pointer;}
+.p-loc{font-size:0.72rem;color:var(--muted);}
+.post-more-btn{background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--text);padding:4px;}
+
+.post-img{width:100%;aspect-ratio:1;background:#efefef;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;cursor:pointer;user-select:none;}
+.post-img-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:8rem;opacity:.1;}
+.post-img-main{font-size:5rem;z-index:1;transition:transform .3s;}
+.post-img:hover .post-img-main{transform:scale(1.05);}
+.heart-burst{position:absolute;font-size:5rem;opacity:0;pointer-events:none;z-index:5;transform:scale(0);transition:all .35s cubic-bezier(.17,.67,.83,.67);}
+.heart-burst.show{opacity:1;transform:scale(1.4);}
+
+.post-actions{display:flex;align-items:center;justify-content:space-between;padding:10px 12px 4px;}
+.pa-left{display:flex;gap:10px;}
+.pa-btn{background:none;border:none;font-size:1.4rem;cursor:pointer;padding:4px;transition:transform .15s;color:var(--text);}
+.pa-btn:hover{transform:scale(1.15);}
+.pa-btn.liked{animation:heartPop .35s ease;}
+@keyframes heartPop{0%{transform:scale(1)}50%{transform:scale(1.4)}100%{transform:scale(1)}}
+
+.post-likes{padding:2px 14px 4px;font-size:.88rem;font-weight:700;}
+.post-cap{padding:0 14px 4px;font-size:.88rem;line-height:1.6;}
+.post-cap strong{cursor:pointer;}
+.post-cap .more{color:var(--muted);cursor:pointer;font-size:.82rem;}
+.post-view-cmts{padding:0 14px 3px;font-size:.82rem;color:var(--muted);cursor:pointer;}
+.post-time{padding:0 14px 10px;font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;}
+.cmt-bar{display:flex;align-items:center;gap:10px;padding:8px 14px;border-top:1px solid var(--border);}
+.cmt-bar input{flex:1;border:none;outline:none;font-family:'Nunito',sans-serif;font-size:.85rem;background:none;color:var(--text);}
+.cmt-bar input::placeholder{color:var(--muted);}
+.cmt-post{background:none;border:none;font-size:.85rem;font-weight:700;color:var(--blue);cursor:pointer;}
+.cmt-post:disabled{opacity:.35;cursor:default;}
+
+/* ===== MESSAGES PAGE ===== */
+.msgs-layout{display:flex;height:100vh;}
+.msgs-list{width:350px;border-right:1px solid var(--border);overflow-y:auto;flex-shrink:0;}
+.msgs-list-header{padding:20px 20px 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--white);z-index:1;}
+.msgs-username{font-weight:700;font-size:1.05rem;}
+.msg-item{display:flex;align-items:center;gap:12px;padding:12px 20px;cursor:pointer;transition:background .15s;}
+.msg-item:hover{background:var(--bg);}
+.msg-item.active{background:var(--bg);}
+.msg-av{width:56px;height:56px;border-radius:50%;background:#efefef;display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0;border:1px solid var(--border);}
+.msg-av.online::after{content:'';position:absolute;width:14px;height:14px;background:var(--green);border-radius:50%;border:2px solid var(--white);bottom:0;right:0;}
+.msg-av-wrap{position:relative;}
+.msg-info{flex:1;min-width:0;}
+.msg-name{font-weight:600;font-size:.9rem;}
+.msg-preview{font-size:.8rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.msg-time{font-size:.72rem;color:var(--muted);flex-shrink:0;}
+.msg-unread-dot{width:8px;height:8px;background:var(--blue);border-radius:50%;flex-shrink:0;}
+
+.chat-area{flex:1;display:flex;flex-direction:column;min-width:0;}
+.chat-header{display:flex;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid var(--border);background:var(--white);}
+.chat-av{width:40px;height:40px;border-radius:50%;background:#efefef;display:flex;align-items:center;justify-content:center;font-size:1.2rem;border:1px solid var(--border);}
+.chat-name{font-weight:700;font-size:.95rem;}
+.chat-status{font-size:.75rem;color:var(--green);}
+.chat-msgs{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:10px;}
+.chat-bubble{max-width:60%;padding:10px 14px;border-radius:20px;font-size:.88rem;line-height:1.5;word-break:break-word;}
+.chat-bubble.sent{background:var(--blue);color:#fff;align-self:flex-end;border-bottom-right-radius:4px;}
+.chat-bubble.recv{background:var(--bg);border:1px solid var(--border);align-self:flex-start;border-bottom-left-radius:4px;color:var(--text);}
+.chat-input-bar{display:flex;align-items:center;gap:10px;padding:12px 16px;border-top:1px solid var(--border);background:var(--white);}
+.chat-input{flex:1;border:1px solid var(--border);border-radius:22px;padding:10px 16px;font-family:'Nunito',sans-serif;font-size:.88rem;outline:none;background:var(--bg);color:var(--text);}
+.chat-send{background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--blue);}
+.chat-empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:var(--muted);}
+.chat-empty-icon{font-size:4rem;}
+
+/* ===== NOTIFICATIONS PAGE ===== */
+.notifs-layout{max-width:600px;margin:0 auto;padding:30px 20px;}
+.notifs-section-title{font-weight:700;font-size:.88rem;margin:20px 0 12px;color:var(--text);}
+.notif-item{display:flex;align-items:center;gap:12px;padding:10px 0;}
+.notif-av{width:44px;height:44px;border-radius:50%;background:#efefef;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;border:1px solid var(--border);}
+.notif-text{flex:1;font-size:.88rem;line-height:1.5;}
+.notif-text strong{font-weight:700;}
+.notif-time{font-size:.75rem;color:var(--muted);}
+.notif-post-thumb{width:44px;height:44px;background:#efefef;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;}
+.notif-follow-btn{background:var(--blue);color:#fff;border:none;border-radius:8px;padding:6px 16px;font-family:'Nunito',sans-serif;font-weight:700;font-size:.8rem;cursor:pointer;}
+.notif-follow-btn.following{background:var(--bg);color:var(--text);border:1px solid var(--border);}
+
+/* ===== EXPLORE PAGE ===== */
+.explore-layout{padding:30px 20px;max-width:935px;margin:0 auto;}
+.explore-search{display:flex;align-items:center;gap:10px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 16px;margin-bottom:24px;}
+.explore-search input{flex:1;background:none;border:none;outline:none;font-family:'Nunito',sans-serif;font-size:.9rem;color:var(--text);}
+.explore-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;}
+.explore-cell{aspect-ratio:1;background:#efefef;display:flex;align-items:center;justify-content:center;font-size:3rem;cursor:pointer;overflow:hidden;position:relative;transition:opacity .2s;}
+.explore-cell:hover{opacity:.85;}
+.explore-cell.big{grid-column:span 2;grid-row:span 2;font-size:5rem;}
+
+/* ===== REELS PAGE ===== */
+.reels-layout{max-width:400px;margin:0 auto;padding:20px;}
+.reel-card{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:24px;}
+.reel-video{width:100%;aspect-ratio:9/16;background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);display:flex;align-items:center;justify-content:center;font-size:6rem;position:relative;cursor:pointer;}
+.reel-overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:16px;background:linear-gradient(to top,rgba(0,0,0,.6),transparent);}
+.reel-user{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.reel-user-av{width:32px;height:32px;border-radius:50%;border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:.9rem;background:#efefef;}
+.reel-username{color:#fff;font-weight:700;font-size:.88rem;}
+.reel-caption{color:#fff;font-size:.82rem;line-height:1.5;}
+.reel-actions{position:absolute;right:12px;bottom:60px;display:flex;flex-direction:column;gap:20px;align-items:center;}
+.reel-action-btn{display:flex;flex-direction:column;align-items:center;gap:4px;color:#fff;font-size:1.6rem;cursor:pointer;}
+.reel-action-btn span{font-size:.72rem;}
+.play-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:3rem;opacity:.7;}
+
+/* ===== PROFILE PAGE ===== */
+.profile-layout{max-width:935px;margin:0 auto;padding:30px 20px;}
+.profile-header{display:flex;gap:80px;align-items:center;margin-bottom:44px;}
+.profile-av-wrap{width:150px;height:150px;border-radius:50%;background:linear-gradient(45deg,var(--s1),var(--s5));padding:3px;flex-shrink:0;}
+.profile-av{width:100%;height:100%;border-radius:50%;border:3px solid var(--white);background:#efefef;display:flex;align-items:center;justify-content:center;font-size:4rem;}
+.profile-info{flex:1;}
+.profile-username-row{display:flex;align-items:center;gap:16px;margin-bottom:20px;flex-wrap:wrap;}
+.profile-uname{font-size:1.25rem;font-weight:300;}
+.profile-edit-btn{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:7px 16px;font-family:'Nunito',sans-serif;font-weight:600;font-size:.88rem;cursor:pointer;color:var(--text);}
+.profile-stats{display:flex;gap:40px;margin-bottom:16px;}
+.profile-stat{text-align:center;}
+.profile-stat strong{font-size:1rem;font-weight:700;display:block;}
+.profile-stat span{font-size:.88rem;color:var(--text);}
+.profile-name{font-weight:700;font-size:.9rem;margin-bottom:4px;}
+.profile-bio{font-size:.88rem;line-height:1.6;color:var(--text);}
+.profile-link{color:var(--blue);font-size:.88rem;text-decoration:none;}
+.profile-tabs{display:flex;border-top:1px solid var(--border);margin-bottom:4px;}
+.profile-tab{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:14px;font-size:.78rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;color:var(--muted);border-top:2px solid transparent;margin-top:-1px;}
+.profile-tab.active{color:var(--text);border-top-color:var(--text);}
+.profile-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:4px;}
+.profile-cell{aspect-ratio:1;background:#efefef;display:flex;align-items:center;justify-content:center;font-size:2.5rem;cursor:pointer;transition:opacity .2s;position:relative;}
+.profile-cell:hover{opacity:.8;}
+
+/* ===== SETTINGS PAGE ===== */
+.settings-layout{max-width:600px;margin:0 auto;padding:30px 20px;}
+.settings-title{font-size:1.1rem;font-weight:700;margin-bottom:24px;padding-bottom:12px;border-bottom:1px solid var(--border);}
+.settings-section{margin-bottom:28px;}
+.settings-section-title{font-size:.78rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
+.setting-item{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--border);cursor:pointer;}
+.setting-item:last-child{border-bottom:none;}
+.setting-left{display:flex;align-items:center;gap:14px;}
+.setting-icon{font-size:1.2rem;width:28px;text-align:center;}
+.setting-label{font-size:.9rem;font-weight:500;}
+.setting-desc{font-size:.78rem;color:var(--muted);margin-top:2px;}
+.setting-right{color:var(--muted);font-size:.88rem;}
+.toggle{width:44px;height:24px;background:var(--border);border-radius:12px;position:relative;cursor:pointer;transition:background .3s;flex-shrink:0;}
+.toggle.on{background:var(--blue);}
+.toggle::after{content:'';position:absolute;width:20px;height:20px;background:#fff;border-radius:50%;top:2px;left:2px;transition:left .3s;box-shadow:0 1px 3px rgba(0,0,0,.2);}
+.toggle.on::after{left:22px;}
+.settings-logout{width:100%;background:none;border:none;color:var(--red);font-family:'Nunito',sans-serif;font-size:.95rem;font-weight:600;cursor:pointer;padding:14px;margin-top:8px;}
+
+/* ===== POST MODAL ===== */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:1000;align-items:center;justify-content:center;}
+.modal-overlay.show{display:flex;}
+.post-modal{background:var(--white);border-radius:12px;max-width:940px;width:90vw;max-height:90vh;display:flex;overflow:hidden;}
+.modal-img{width:55%;background:#000;display:flex;align-items:center;justify-content:center;font-size:6rem;}
+.modal-right{width:45%;display:flex;flex-direction:column;max-height:90vh;}
+.modal-header{display:flex;align-items:center;gap:10px;padding:14px;border-bottom:1px solid var(--border);flex-shrink:0;}
+.modal-cmts{flex:1;overflow-y:auto;padding:12px 14px;}
+.modal-cmt-item{display:flex;gap:10px;margin-bottom:14px;}
+.modal-cmt-av{width:32px;height:32px;border-radius:50%;background:#efefef;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;border:1px solid var(--border);}
+.modal-cmt-text{font-size:.85rem;line-height:1.5;}
+.modal-cmt-text strong{font-weight:700;margin-right:6px;}
+.modal-cmt-time{font-size:.72rem;color:var(--muted);margin-top:2px;}
+.modal-actions{padding:10px 14px;border-top:1px solid var(--border);flex-shrink:0;}
+.modal-likes{font-size:.88rem;font-weight:700;padding:0 14px 6px;}
+.modal-input-bar{display:flex;align-items:center;gap:8px;padding:8px 14px;border-top:1px solid var(--border);}
+.modal-input-bar input{flex:1;border:none;outline:none;font-family:'Nunito',sans-serif;font-size:.85rem;background:none;color:var(--text);}
+.modal-close{position:absolute;top:20px;right:20px;background:none;border:none;color:#fff;font-size:1.8rem;cursor:pointer;z-index:1001;}
+
+/* ===== STORY VIEWER ===== */
+.story-viewer{display:none;position:fixed;inset:0;background:#000;z-index:2000;flex-direction:column;align-items:center;justify-content:center;}
+.story-viewer.show{display:flex;}
+.story-progress{display:flex;gap:4px;width:100%;max-width:400px;padding:12px 12px 8px;}
+.story-prog-bar{flex:1;height:3px;background:rgba(255,255,255,.4);border-radius:2px;overflow:hidden;}
+.story-prog-fill{height:100%;background:#fff;width:0%;transition:width 5s linear;}
+.story-prog-fill.run{width:100%;}
+.story-content{width:100%;max-width:400px;aspect-ratio:9/16;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:8rem;position:relative;overflow:hidden;}
+.story-header{position:absolute;top:12px;left:12px;right:12px;display:flex;align-items:center;gap:10px;}
+.story-header-av{width:32px;height:32px;border-radius:50%;border:2px solid #fff;background:#efefef;display:flex;align-items:center;justify-content:center;font-size:.9rem;}
+.story-header-name{color:#fff;font-weight:700;font-size:.88rem;}
+.story-header-time{color:rgba(255,255,255,.7);font-size:.75rem;margin-left:4px;}
+.story-close{position:absolute;top:12px;right:12px;background:none;border:none;color:#fff;font-size:1.6rem;cursor:pointer;}
+.story-reply{position:absolute;bottom:20px;left:16px;right:16px;display:flex;gap:10px;}
+.story-reply input{flex:1;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.5);border-radius:22px;padding:10px 16px;color:#fff;font-family:'Nunito',sans-serif;font-size:.85rem;outline:none;}
+.story-reply input::placeholder{color:rgba(255,255,255,.7);}
+
+/* ===== BOTTOM NAV (mobile) ===== */
+.bottomnav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--white);border-top:1px solid var(--border);padding:8px 0;z-index:300;}
+.bottomnav-row{display:flex;justify-content:space-around;}
+.bnav-btn{background:none;border:none;font-size:1.5rem;cursor:pointer;padding:6px 14px;}
+
+/* MORE MENU */
+.more-menu{position:fixed;bottom:80px;left:12px;background:var(--white);border:1px solid var(--border);border-radius:12px;padding:8px;z-index:400;box-shadow:0 8px 30px rgba(0,0,0,.12);min-width:200px;display:none;}
+.more-menu.show{display:block;}
+.more-menu-item{display:flex;align-items:center;gap:12px;padding:12px;border-radius:8px;cursor:pointer;font-size:.9rem;font-weight:500;}
+.more-menu-item:hover{background:var(--bg);}
+
+@media(max-width:768px){
+  .leftnav{display:none;}
+  .page{margin-left:0;padding-bottom:60px;}
+  .bottomnav{display:block;}
+  .msgs-layout{height:calc(100vh - 60px);}
+  .msgs-list{width:100%;}
+  .chat-area{display:none;}
+  .profile-header{flex-direction:column;gap:20px;text-align:center;}
+  .profile-stats{justify-content:center;}
+  .modal-img{display:none;}
+  .modal-right{width:100%;}
+  .post-modal{width:95vw;}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== LOGIN PAGE ===== -->
+<div id="loginPage">
+  <div class="login-wrap">
+    <div class="login-phone">📱</div>
+    <div class="login-box">
+      <div class="login-card">
+        <div class="login-logo">Instagram</div>
+        <input class="login-input" type="text" id="loginUser" placeholder="Phone number, username, or email" autocomplete="off"/>
+        <input class="login-input" type="password" id="loginPass" placeholder="Password"/>
+        <button class="login-btn" onclick="doLogin()">Log in</button>
+        <div class="login-divider">OR</div>
+        <div class="login-fb">🔵 Log in with Facebook</div>
+        <div class="login-forgot">Forgot password?</div>
+      </div>
+      <div class="login-signup-card">Don't have an account? <a onclick="doLogin()">Sign up</a></div>
+      <div class="login-apps">
+        Get the app.
+        <div class="app-btns">
+          <button class="app-btn">📱 App Store</button>
+          <button class="app-btn">▶ Google Play</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MAIN APP ===== -->
+<div id="app">
+
+  <!-- LEFT NAV -->
+  <nav class="leftnav" id="leftnav">
+    <div class="nav-logo" onclick="showPage('feed')">Instagram</div>
+    <div class="nav-item active" id="nav-feed" onclick="showPage('feed')"><span class="nav-icon">🏠</span><span>Home</span></div>
+    <div class="nav-item" id="nav-search" onclick="showPage('explore')"><span class="nav-icon">🔍</span><span>Search</span></div>
+    <div class="nav-item" id="nav-explore" onclick="showPage('explore')"><span class="nav-icon">🧭</span><span>Explore</span></div>
+    <div class="nav-item" id="nav-reels" onclick="showPage('reels')"><span class="nav-icon">🎬</span><span>Reels</span></div>
+    <div class="nav-item" id="nav-msgs" onclick="showPage('messages')"><span class="nav-icon">💬</span><span>Messages</span><span class="nav-badge">3</span></div>
+    <div class="nav-item" id="nav-notifs" onclick="showPage('notifications')"><span class="nav-icon">❤️</span><span>Notifications</span><span class="nav-badge">9+</span></div>
+    <div class="nav-item" id="nav-create" onclick="openCreateModal()"><span class="nav-icon">➕</span><span>Create</span></div>
+    <div class="nav-item" id="nav-profile" onclick="showPage('profile')"><span class="nav-icon">👤</span><span>Profile</span></div>
+    <div class="nav-spacer"></div>
+    <div class="nav-item" onclick="toggleMoreMenu()"><span class="nav-icon">☰</span><span>More</span></div>
+  </nav>
+
+  <!-- MORE MENU -->
+  <div class="more-menu" id="moreMenu">
+    <div class="more-menu-item" onclick="showPage('settings');toggleMoreMenu()">⚙️ Settings</div>
+    <div class="more-menu-item" onclick="toggleDark()">🌙 <span id="darkLabel">Dark mode</span></div>
+    <div class="more-menu-item" onclick="doLogout()">🚪 Log out</div>
+  </div>
+
+  <!-- ===== FEED PAGE ===== -->
+  <div class="page active" id="page-feed">
+    <div class="feed-layout">
+      <div class="stories-card">
+        <div class="stories-row" id="storiesRow"></div>
+      </div>
+      <div id="feedPosts"></div>
+    </div>
+  </div>
+
+  <!-- ===== EXPLORE PAGE ===== -->
+  <div class="page" id="page-explore">
+    <div class="explore-layout">
+      <div class="explore-search"><span>🔍</span><input type="text" placeholder="Search" id="exploreSearch"/></div>
+      <div class="explore-grid" id="exploreGrid"></div>
+    </div>
+  </div>
+
+  <!-- ===== REELS PAGE ===== -->
+  <div class="page" id="page-reels">
+    <div class="reels-layout" id="reelsContainer"></div>
+  </div>
+
+  <!-- ===== MESSAGES PAGE ===== -->
+  <div class="page" id="page-messages">
+    <div class="msgs-layout">
+      <div class="msgs-list">
+        <div class="msgs-list-header">
+          <span class="msgs-username">atishay.24</span>
+          <span style="font-size:1.3rem;cursor:pointer">✏️</span>
+        </div>
+        <div id="msgsList"></div>
+      </div>
+      <div class="chat-area" id="chatArea">
+        <div class="chat-empty" id="chatEmpty">
+          <div class="chat-empty-icon">💬</div>
+          <div style="font-weight:700;font-size:1rem;color:var(--text)">Your Messages</div>
+          <div style="font-size:.88rem">Send a message to start a chat</div>
+        </div>
+        <div id="chatWindow" style="display:none;flex:1;display:flex;flex-direction:column;height:100vh;">
+          <div class="chat-header" id="chatHeader"></div>
+          <div class="chat-msgs" id="chatMsgs"></div>
+          <div class="chat-input-bar">
+            <span style="font-size:1.3rem;cursor:pointer">😊</span>
+            <input class="chat-input" id="chatInput" placeholder="Message…" onkeydown="chatKeydown(event)"/>
+            <span style="font-size:1.3rem;cursor:pointer">🎤</span>
+            <span style="font-size:1.3rem;cursor:pointer">📷</span>
+            <button class="chat-send" onclick="sendMsg()">➤</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== NOTIFICATIONS PAGE ===== -->
+  <div class="page" id="page-notifications">
+    <div class="notifs-layout">
+      <h2 style="font-size:1.1rem;font-weight:700;margin-bottom:20px">Notifications</h2>
+      <div id="notifsContainer"></div>
+    </div>
+  </div>
+
+  <!-- ===== PROFILE PAGE ===== -->
+  <div class="page" id="page-profile">
+    <div class="profile-layout">
+      <div class="profile-header">
+        <div class="profile-av-wrap"><div class="profile-av">😊</div></div>
+        <div class="profile-info">
+          <div class="profile-username-row">
+            <span class="profile-uname">atishay.24</span>
+            <button class="profile-edit-btn">Edit profile</button>
+            <button class="profile-edit-btn" onclick="showPage('settings')">⚙️</button>
+          </div>
+          <div class="profile-stats">
+            <div class="profile-stat"><strong id="postCount">12</strong><span>posts</span></div>
+            <div class="profile-stat"><strong>1,284</strong><span>followers</span></div>
+            <div class="profile-stat"><strong>456</strong><span>following</span></div>
+          </div>
+          <div class="profile-name">Your Name</div>
+          <div class="profile-bio">Living life one post at a time ✨<br>📍 Bengaluru, India</div>
+          <a class="profile-link" href="#">🔗 </a>
+        </div>
+      </div>
+      <div class="profile-tabs">
+        <div class="profile-tab active" onclick="switchProfileTab(this,'grid')">⊞ POSTS</div>
+        <div class="profile-tab" onclick="switchProfileTab(this,'reels')">▶ REELS</div>
+        <div class="profile-tab" onclick="switchProfileTab(this,'tagged')">🏷 TAGGED</div>
+      </div>
+      <div class="profile-grid" id="profileGrid"></div>
+    </div>
+  </div>
+
+  <!-- ===== SETTINGS PAGE ===== -->
+  <div class="page" id="page-settings">
+    <div class="settings-layout">
+      <div class="settings-title">⚙️ Settings</div>
+
+      <div class="settings-section">
+        <div class="settings-section-title">Account</div>
+        <div class="setting-item"><div class="setting-left"><span class="setting-icon">👤</span><div><div class="setting-label">Edit Profile</div><div class="setting-desc">Update your photo and personal info</div></div></div><span class="setting-right">›</span></div>
+        <div class="setting-item"><div class="setting-left"><span class="setting-icon">🔒</span><div><div class="setting-label">Password & Security</div><div class="setting-desc">Change password, two-factor auth</div></div></div><span class="setting-right">›</span></div>
+        <div class="setting-item"><div class="setting-left"><span class="setting-icon">🛡️</span><div><div class="setting-label">Privacy</div><div class="setting-desc">Account privacy, blocked accounts</div></div></div><span class="setting-right">›</span></div>
+      </div>
+
+      <div class="settings-section">
+        <div class="settings-section-title">Notifications</div>
+        <div class="setting-item"><div class="setting-left"><span class="setting-icon">❤️</span><div><div class="setting-label">Likes</div></div></div><div class="toggle on" onclick="toggleSwitch(this)"></div></div>
+        <div class="setting-item"><div class="setting-left"><span class="setting-icon">💬</span><div><div class="setting-label">Comments</div></div></div><div class="toggle on" onclick="toggleSwitch(this)"></div></div>
+        <div class="setting-item"><div class="setting-left"><span class="setting-icon">👥</span><div><div class="setting-label">Follow Requests</div></div></div><div class="toggle on" onclick="toggleSwitch(this)"></div></div>
+        <div class="setting-item"><div class="setting-left"><span class="setting-icon">📢</span><div><div class="setting-label">Stories</div></div></div><div class="toggle" onclick="toggleSwitch(this)"></div></div>
+        <div class="setting-item"><div class="setting-left"><span class="setting-icon">📺</span><div><div class="setting-label">Live Videos</div></div></div><div class="toggle" onclick="toggleSwitch(this)"></div></div>
+      </div>
+
+      <div class="settings-section">
+        <div class="settings-section-title">Appearance</div>
+        <div class="setting-item" onclick="toggleDark()"><div class="setting-left"><span class="setting-icon">🌙</span><div><div class="setting-label">Dark Mode</div></div></div><div class="toggle" id="darkToggle" onclick="event.stopPropagation();toggleDark()"></div></div>
+        <div class="setting-item"><div class="setting-left"><span class="setting-icon">🌐</span><div><div class="setting-label">Language</div><div class="setting-desc">English</div></div></div><span class="setting-right">›</span></div>
+      </div>
+
+      <div class="settings-section">
+        <div class="settings-section-title">Information</div>
+        <div class="setting-item"><div class="setting-left"><span class="setting-icon">ℹ️</span><div><div class="setting-label">About</div></div></div><span class="setting-right">›</span></div>
+        <div class="setting-item"><div class="setting-left"><span class="setting-icon">📜</span><div><div class="setting-label">Terms of Service</div></div></div><span class="setting-right">›</span></div>
+        <div class="setting-item"><div class="setting-left"><span class="setting-icon">🔐</span><div><div class="setting-label">Privacy Policy</div></div></div><span class="setting-right">›</span></div>
+      </div>
+
+      <button class="settings-logout" onclick="doLogout()">Log out</button>
+      <div style="text-align:center;font-size:.72rem;color:var(--muted);margin-top:12px;">Instagram Clone · For Learning Only</div>
+    </div>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <div class="bottomnav">
+    <div class="bottomnav-row">
+      <button class="bnav-btn" onclick="showPage('feed')">🏠</button>
+      <button class="bnav-btn" onclick="showPage('explore')">🔍</button>
+      <button class="bnav-btn" onclick="openCreateModal()">➕</button>
+      <button class="bnav-btn" onclick="showPage('reels')">🎬</button>
+      <button class="bnav-btn" onclick="showPage('notifications')">❤️</button>
+      <button class="bnav-btn" onclick="showPage('profile')">👤</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- POST MODAL -->
+<div class="modal-overlay" id="postModal" onclick="closePostModal(event)">
+  <button class="modal-close" onclick="document.getElementById('postModal').classList.remove('show')">✕</button>
+  <div class="post-modal" onclick="event.stopPropagation()">
+    <div class="modal-img" id="modalImg"></div>
+    <div class="modal-right">
+      <div class="modal-header" id="modalHeader"></div>
+      <div class="modal-cmts" id="modalCmts"></div>
+      <div class="modal-actions" id="modalActions"></div>
+      <div class="modal-likes" id="modalLikes"></div>
+      <div class="modal-input-bar">
+        <span style="font-size:1.2rem;cursor:pointer">😊</span>
+        <input type="text" placeholder="Add a comment…" id="modalCmtInput" onkeydown="modalCmtKeydown(event)"/>
+        <button class="cmt-post" id="modalCmtBtn" onclick="submitModalCmt()">Post</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STORY VIEWER -->
+<div class="story-viewer" id="storyViewer">
+  <div class="story-progress" id="storyProgress"></div>
+  <div class="story-content" id="storyContent">
+    <div class="story-header" id="storyHeader"></div>
+    <span id="storyEmoji" style="font-size:8rem"></span>
+    <button class="story-close" onclick="closeStory()">✕</button>
+  </div>
+  <div style="width:100%;max-width:400px;margin-top:12px;">
+    <div class="story-reply"><input type="text" placeholder="Reply to story…"/><span style="font-size:1.5rem;cursor:pointer;color:#fff">💌</span></div>
+  </div>
+</div>
+
+<!-- CREATE POST MODAL -->
+<div class="modal-overlay" id="createModal" onclick="closeCreateModal(event)">
+  <div style="background:var(--white);border-radius:12px;width:500px;max-width:90vw;overflow:hidden;" onclick="event.stopPropagation()">
+    <div style="padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;">
+      <span style="font-size:.95rem;font-weight:700;">Create new post</span>
+      <button onclick="document.getElementById('createModal').classList.remove('show')" style="background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--text)">✕</button>
+    </div>
+    <div style="padding:40px;text-align:center;">
+      <div style="font-size:4rem;margin-bottom:16px">🖼️</div>
+      <div style="font-size:1.1rem;font-weight:300;margin-bottom:20px;color:var(--text)">Drag photos and videos here</div>
+      <button onclick="addNewPost()" style="background:var(--blue);color:#fff;border:none;border-radius:8px;padding:10px 24px;font-family:'Nunito',sans-serif;font-weight:700;font-size:.88rem;cursor:pointer;">Select from computer</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== DATA =====
+const STORIES=[
+  {name:'your_story',emoji:'➕',seen:false,isAdd:true},
+  {name:'priya_r',emoji:'👩',seen:false,bg:'linear-gradient(135deg,#f09433,#bc1888)'},
+  {name:'rahul.k',emoji:'🧑',seen:false,bg:'linear-gradient(135deg,#667eea,#764ba2)'},
+  {name:'neha.s',emoji:'👧',seen:true,bg:'linear-gradient(135deg,#11998e,#38ef7d)'},
+  {name:'arjun_m',emoji:'👦',seen:false,bg:'linear-gradient(135deg,#fc4a1a,#f7b733)'},
+  {name:'anjali23',emoji:'🧕',seen:false,bg:'linear-gradient(135deg,#ee0979,#ff6a00)'},
+  {name:'rohan.v',emoji:'🧔',seen:true,bg:'linear-gradient(135deg,#1a1a2e,#16213e)'},
+  {name:'siya_b',emoji:'👱‍♀️',seen:false,bg:'linear-gradient(135deg,#0f2027,#203a43,#2c5364)'},
+];
+
+const POSTS=[
+  {id:1,user:'priya_r',uEmoji:'👩',loc:'Bengaluru, Karnataka',img:'🌸',imgBg:'🌺',likes:1243,caption:"Beautiful day at Cubbon Park! 🌿 Nature therapy hits different 💚 #bangalore #nature #weekend",time:'2 HOURS AGO',liked:false,saved:false,comments:[
+    {user:'rahul.k',emoji:'🧑',text:'Wow looks amazing! 😍',time:'1h'},
+    {user:'anjali23',emoji:'🧕',text:'We need to go together next time!',time:'45m'},
+    {user:'siya_b',emoji:'👱‍♀️',text:'So peaceful 🌿',time:'20m'},
+  ]},
+  {id:2,user:'rahul.k',uEmoji:'🧑',loc:'Mumbai, India',img:'🍕',imgBg:'🍔',likes:876,caption:"Homemade pizza night 🍕🔥 The secret ingredient is extra cheese! Recipe in bio #food #homecooking",time:'5 HOURS AGO',liked:false,saved:false,comments:[
+    {user:'priya_r',emoji:'👩',text:'Send me some!! 😭',time:'4h'},
+    {user:'arjun_m',emoji:'👦',text:'Bro this looks fire 🔥',time:'3h'},
+  ]},
+  {id:3,user:'anjali23',uEmoji:'🧕',loc:'Goa, India',img:'🌅',imgBg:'🏖️',likes:3102,caption:"Sunsets and good vibes only ✨🌊 Goa you never disappoint! #goa #sunset #travel #wanderlust",time:'1 DAY AGO',liked:true,saved:false,comments:[
+    {user:'neha.s',emoji:'👧',text:'Living my dream life 😭✨',time:'23h'},
+    {user:'rohan.v',emoji:'🧔',text:'Goals!! 🌅',time:'20h'},
+    {user:'siya_b',emoji:'👱‍♀️',text:'Take me with you next time!!',time:'18h'},
+  ]},
+  {id:4,user:'arjun_m',uEmoji:'👦',loc:'Delhi, India',img:'🎸',imgBg:'🎵',likes:564,caption:"New song drop coming soon 🎸🎶 Been working on this one for months. Stay tuned! #music #guitar #indie",time:'2 DAYS AGO',liked:false,saved:false,comments:[
+    {user:'rahul.k',emoji:'🧑',text:'Can\'t wait to hear it bro!',time:'2d'},
+  ]},
+];
+
+const MESSAGES=[
+  {id:1,user:'priya_r',emoji:'👩',preview:'Hey! Did you see my story?',time:'2m',unread:true,online:true,chat:[
+    {text:'Hey! How are you?',sent:false,time:'10:30 AM'},
+    {text:'I\'m good! Just chilling 😊',sent:true,time:'10:31 AM'},
+    {text:'Did you see my latest post?',sent:false,time:'10:32 AM'},
+    {text:'Yes!! Cubbon Park looks so beautiful 🌿',sent:true,time:'10:33 AM'},
+    {text:'Hey! Did you see my story?',sent:false,time:'10:35 AM'},
+  ]},
+  {id:2,user:'rahul.k',emoji:'🧑',preview:'That pizza recipe 🍕',time:'1h',unread:true,online:false,chat:[
+    {text:'Bro that pizza looked amazing!',sent:true,time:'9:00 AM'},
+    {text:'Thanks man! It was really good 😄',sent:false,time:'9:05 AM'},
+    {text:'That pizza recipe 🍕',sent:false,time:'9:06 AM'},
+  ]},
+  {id:3,user:'anjali23',emoji:'🧕',preview:'We should plan a Goa trip!',time:'3h',unread:false,online:true,chat:[
+    {text:'OMG Goa looks so good in your photos!',sent:true,time:'7:00 AM'},
+    {text:'It was absolutely incredible ✨',sent:false,time:'7:10 AM'},
+    {text:'We should plan a Goa trip!',sent:false,time:'7:12 AM'},
+  ]},
+  {id:4,user:'arjun_m',emoji:'👦',preview:'New song preview 🎸',time:'1d',unread:true,online:false,chat:[
+    {text:'When is the new song dropping?',sent:true,time:'Yesterday'},
+    {text:'Very soon! Working final touches 🎸',sent:false,time:'Yesterday'},
+    {text:'New song preview 🎸',sent:false,time:'Yesterday'},
+  ]},
+  {id:5,user:'neha.s',emoji:'👧',preview:'Liked your photo',time:'2d',unread:false,online:false,chat:[
+    {text:'Your photos are always so aesthetic!',sent:false,time:'2d ago'},
+    {text:'Thanks!! You\'re so sweet 🥰',sent:true,time:'2d ago'},
+  ]},
+];
+
+const NOTIFS=[
+  {type:'like',user:'priya_r',emoji:'👩',text:'liked your photo.',thumb:'🌸',time:'2m',followed:false},
+  {type:'comment',user:'rahul.k',emoji:'🧑',text:'commented: "Wow this is amazing!!"',thumb:'🌸',time:'5m',followed:false},
+  {type:'follow',user:'anjali23',emoji:'🧕',text:'started following you.',time:'10m',followed:false},
+  {type:'like',user:'arjun_m',emoji:'👦',text:'liked your photo.',thumb:'🎸',time:'1h',followed:false},
+  {type:'mention',user:'neha.s',emoji:'👧',text:'mentioned you in a comment: "@your_username come here!"',thumb:'🌅',time:'2h',followed:true},
+  {type:'follow',user:'rohan.v',emoji:'🧔',text:'started following you.',time:'3h',followed:true},
+  {type:'like',user:'siya_b',emoji:'👱‍♀️',text:'liked your photo.',thumb:'🏖️',time:'5h',followed:false},
+  {type:'comment',user:'priya_r',emoji:'👩',text:'replied to your comment: "Yes totally!!"',thumb:'🌸',time:'1d',followed:false},
+  {type:'follow',user:'karan.photo',emoji:'📸',text:'started following you.',time:'2d',followed:false},
+];
+
+const EXPLORE_EMOJIS=['🌸','🍕','🌅','🎸','🏖️','🎨','🌿','🍜','🎭','🏔️','🦋','🎪','🌮','🎯','🦁','🌊','🍰','🎵','🏄','🌈','🦊','🍣','🎪','🌺'];
+const REELS=[
+  {user:'travel_vibes',emoji:'✈️',uEmoji:'🌍',caption:'Exploring hidden streets of Bangalore 🇮🇳 #travel #bangalore',likes:'12.4K',comments:'234'},
+  {user:'foodie_diaries',emoji:'🍜',uEmoji:'👨‍🍳',caption:'Making the perfect biryani 🍛 Recipe in bio! #food #cooking #biryani',likes:'8.7K',comments:'189'},
+  {user:'sunset.shots',emoji:'🌅',uEmoji:'📸',caption:'Golden hour magic ✨ #photography #sunset #golden',likes:'24.1K',comments:'512'},
+];
+
+// ===== STATE =====
+let currentChat=null;
+let storyTimer=null;
+let darkMode=false;
+
+// ===== INIT =====
+function init(){
+  renderStories();
+  renderFeed();
+  renderExplore();
+  renderReels();
+  renderMessages();
+  renderNotifs();
+  renderProfile();
+}
+
+// ===== LOGIN =====
+function doLogin(){
+  document.getElementById('loginPage').style.display='none';
+  document.getElementById('app').style.display='block';
+  init();
+}
+function doLogout(){
+  document.getElementById('app').style.display='none';
+  document.getElementById('loginPage').style.display='flex';
+  document.getElementById('loginUser').value='';
+  document.getElementById('loginPass').value='';
+}
+document.getElementById('loginPass').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+
+// ===== PAGE NAVIGATION =====
+function showPage(p){
+  document.querySelectorAll('.page').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
+  document.getElementById('page-'+p).classList.add('active');
+  const n=document.getElementById('nav-'+{feed:'feed',explore:'search',reels:'reels',messages:'msgs',notifications:'notifs',profile:'profile',settings:''}[p]||p);
+  if(n)n.classList.add('active');
+  document.getElementById('moreMenu').classList.remove('show');
+}
+
+// ===== STORIES =====
+function renderStories(){
+  const row=document.getElementById('storiesRow');
+  row.innerHTML='';
+  STORIES.forEach((s,i)=>{
+    const div=document.createElement('div');
+    div.className='story-item';
+    div.innerHTML=`
+      <div class="story-ring${s.seen?' seen':''}" style="${s.isAdd?'background:none;border:2px dashed var(--border);':''} ">
+        <div class="story-inner">${s.emoji}</div>
+      </div>
+      <span class="story-name">${s.isAdd?'Your story':s.name}</span>`;
+    div.onclick=()=>s.isAdd?openCreateModal():openStory(i);
+    row.appendChild(div);
+  });
+}
+
+function openStory(i){
+  const s=STORIES[i];
+  if(s.isAdd)return;
+  STORIES[i].seen=true;
+  renderStories();
+  const viewer=document.getElementById('storyViewer');
+  viewer.classList.add('show');
+  document.getElementById('storyEmoji').textContent=s.emoji;
+  document.getElementById('storyContent').style.background=s.bg||'linear-gradient(135deg,#667eea,#764ba2)';
+  document.getElementById('storyHeader').innerHTML=`
+    <div class="story-header-av">${s.emoji}</div>
+    <span class="story-header-name">${s.name}</span>
+    <span class="story-header-time">2h ago</span>`;
+  const prog=document.getElementById('storyProgress');
+  prog.innerHTML='<div class="story-prog-bar"><div class="story-prog-fill" id="spf"></div></div>';
+  setTimeout(()=>document.getElementById('spf').classList.add('run'),50);
+  clearTimeout(storyTimer);
+  storyTimer=setTimeout(closeStory,5000);
+}
+function closeStory(){
+  document.getElementById('storyViewer').classList.remove('show');
+  clearTimeout(storyTimer);
+  document.getElementById('spf')&&document.getElementById('spf').classList.remove('run');
+}
+
+// ===== FEED =====
+function renderFeed(){
+  const c=document.getElementById('feedPosts');
+  c.innerHTML='';
+  POSTS.forEach((p,i)=>c.appendChild(makePostEl(p,i)));
+}
+
+function makePostEl(post,i){
+  const div=document.createElement('div');
+  div.className='post';
+  div.innerHTML=`
+    <div class="post-header">
+      <div class="post-user-info">
+        <div class="p-avatar"><div class="inn">${post.uEmoji}</div></div>
+        <div><div class="p-name">${post.user}</div><div class="p-loc">${post.loc}</div></div>
+      </div>
+      <button class="post-more-btn" onclick="showPostMenu(${i})">···</button>
+    </div>
+    <div class="post-img" id="pimg${i}" ondblclick="likePost(${i})" onclick="handleImgClick(${i},event)">
+      <div class="post-img-bg">${post.imgBg}</div>
+      <div class="post-img-main">${post.img}</div>
+      <div class="heart-burst" id="hb${i}">❤️</div>
+    </div>
+    <div class="post-actions">
+      <div class="pa-left">
+        <button class="pa-btn" id="likeBtn${i}" onclick="likePost(${i})">${post.liked?'❤️':'🤍'}</button>
+        <button class="pa-btn" onclick="openPostModal(${i})">💬</button>
+        <button class="pa-btn" onclick="sharePost(${i})">📤</button>
+      </div>
+      <button class="pa-btn" id="saveBtn${i}" onclick="savePost(${i})">${post.saved?'🔖':'🏷️'}</button>
+    </div>
+    <div class="post-likes" id="plikes${i}">${post.likes.toLocaleString()} likes</div>
+    <div class="post-cap"><strong>${post.user}</strong>${post.caption.length>100?post.caption.slice(0,100)+'<span class="more" onclick="openPostModal('+i+')"> more</span>':post.caption}</div>
+    <div class="post-view-cmts" onclick="openPostModal(${i})">View all ${post.comments.length} comments</div>
+    <div class="post-time">${post.time}</div>
+    <div class="cmt-bar">
+      <span style="font-size:1.2rem;cursor:pointer" onclick="openPostModal(${i})">😊</span>
+      <input type="text" placeholder="Add a comment…" id="ci${i}" oninput="document.getElementById('cb${i}').disabled=!this.value.trim()" onkeydown="if(event.key==='Enter')quickComment(${i})"/>
+      <button class="cmt-post" disabled id="cb${i}" onclick="quickComment(${i})">Post</button>
+    </div>`;
+  return div;
+}
+
+let dblClickTimer=null;
+function handleImgClick(i,e){
+  if(dblClickTimer){clearTimeout(dblClickTimer);dblClickTimer=null;likePost(i);return;}
+  dblClickTimer=setTimeout(()=>{dblClickTimer=null;},250);
+}
+
+function likePost(i){
+  POSTS[i].liked=!POSTS[i].liked;
+  POSTS[i].likes+=POSTS[i].liked?1:-1;
+  document.getElementById('likeBtn'+i).textContent=POSTS[i].liked?'❤️':'🤍';
+  document.getElementById('plikes'+i).textContent=POSTS[i].likes.toLocaleString()+' likes';
+  if(POSTS[i].liked){
+    const hb=document.getElementById('hb'+i);
+    hb.classList.add('show');
+    setTimeout(()=>hb.classList.remove('show'),700);
+  }
+}
+function savePost(i){
+  POSTS[i].saved=!POSTS[i].saved;
+  document.getElementById('saveBtn'+i).textContent=POSTS[i].saved?'🔖':'🏷️';
+}
+function sharePost(i){
+  if(navigator.share){navigator.share({title:POSTS[i].user,text:POSTS[i].caption});}
+  else{navigator.clipboard&&navigator.clipboard.writeText('Check out this post by @'+POSTS[i].user);alert('Link copied! 📋');}
+}
+function quickComment(i){
+  const input=document.getElementById('ci'+i);
+  const val=input.value.trim();
+  if(!val)return;
+  POSTS[i].comments.push({user:'your_username',emoji:'😊',text:val,time:'just now'});
+  input.value='';
+  document.getElementById('cb'+i).disabled=true;
+  document.querySelector('#page-feed .post:nth-child('+(i+1)+') .post-view-cmts').textContent='View all '+POSTS[i].comments.length+' comments';
+}
+function showPostMenu(i){
+  const actions=['Edit','Delete','Share','Report','Copy link'];
+  alert('Options:\n'+actions.join('\n'));
+}
+function addNewPost(){
+  const emojis=['🎨','🌟','🎭','🦋','🌈','🎪','🦁','🏄'];
+  const captions=['Just posted something new! ✨','Feeling great today 😊','Life is beautiful 🌟','New adventures await! 🎭'];
+  const newPost={
+    id:POSTS.length+1,
+    user:'your_username',uEmoji:'😊',loc:'Bengaluru, India',
+    img:emojis[Math.floor(Math.random()*emojis.length)],
+    imgBg:'🌟',likes:0,
+    caption:captions[Math.floor(Math.random()*captions.length)],
+    time:'JUST NOW',liked:false,saved:false,comments:[]
+  };
+  POSTS.unshift(newPost);
+  renderFeed();
+  document.getElementById('postCount').textContent=parseInt(document.getElementById('postCount').textContent)+1;
+  renderProfile();
+  document.getElementById('createModal').classList.remove('show');
+}
+
+// ===== POST MODAL =====
+let modalPostIndex=0;
+function openPostModal(i){
+  modalPostIndex=i;
+  const p=POSTS[i];
+  document.getElementById('modalImg').textContent=p.img;
+  document.getElementById('modalHeader').innerHTML=`
+    <div class="p-avatar"><div class="inn">${p.uEmoji}</div></div>
+    <div><div class="p-name">${p.user}</div><div class="p-loc">${p.loc}</div></div>`;
+  renderModalCmts(i);
+  document.getElementById('modalActions').innerHTML=`
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:4px 0">
+      <div style="display:flex;gap:10px">
+        <button class="pa-btn" onclick="likePost(${i});renderModalCmts(${i})">${p.liked?'❤️':'🤍'}</button>
+        <button class="pa-btn">💬</button>
+        <button class="pa-btn" onclick="sharePost(${i})">📤</button>
+      </div>
+      <button class="pa-btn" onclick="savePost(${i})">${p.saved?'🔖':'🏷️'}</button>
+    </div>`;
+  document.getElementById('modalLikes').textContent=p.likes.toLocaleString()+' likes';
+  document.getElementById('postModal').classList.add('show');
+}
+function renderModalCmts(i){
+  const p=POSTS[i];
+  const c=document.getElementById('modalCmts');
+  c.innerHTML=`<div class="modal-cmt-item">
+    <div class="modal-cmt-av">${p.uEmoji}</div>
+    <div><div class="modal-cmt-text"><strong>${p.user}</strong>${p.caption}</div></div>
+  </div>`+
+  p.comments.map(cm=>`<div class="modal-cmt-item">
+    <div class="modal-cmt-av">${cm.emoji}</div>
+    <div><div class="modal-cmt-text"><strong>${cm.user}</strong>${cm.text}</div>
+    <div class="modal-cmt-time">${cm.time} · ❤️ Like · Reply</div></div>
+  </div>`).join('');
+}
+function closePostModal(e){
+  if(e.target===document.getElementById('postModal'))document.getElementById('postModal').classList.remove('show');
+}
+function modalCmtKeydown(e){
+  if(e.key==='Enter')submitModalCmt();
+}
+function submitModalCmt(){
+  const input=document.getElementById('modalCmtInput');
+  const val=input.value.trim();
+  if(!val)return;
+  POSTS[modalPostIndex].comments.push({user:'your_username',emoji:'😊',text:val,time:'just now'});
+  input.value='';
+  renderModalCmts(modalPostIndex);
+  renderFeed();
+}
+
+// ===== CREATE MODAL =====
+function openCreateModal(){
+  document.getElementById('createModal').classList.add('show');
+}
+function closeCreateModal(e){
+  if(e.target===document.getElementById('createModal'))document.getElementById('createModal').classList.remove('show');
+}
+
+// ===== EXPLORE =====
+function renderExplore(){
+  const g=document.getElementById('exploreGrid');
+  g.innerHTML='';
+  EXPLORE_EMOJIS.forEach((em,i)=>{
+    const div=document.createElement('div');
+    div.className='explore-cell'+(i===0||i===9?' big':'');
+    div.textContent=em;
+    div.onclick=()=>alert('Opening post: '+em);
+    g.appendChild(div);
+  });
+}
+
+// ===== REELS =====
+function renderReels(){
+  const c=document.getElementById('reelsContainer');
+  c.innerHTML='';
+  REELS.forEach(r=>{
+    const div=document.createElement('div');
+    div.className='reel-card';
+    div.innerHTML=`
+      <div class="reel-video" onclick="this.querySelector('.play-btn').style.display='none'">
+        <div style="font-size:7rem">${r.emoji}</div>
+        <div class="play-btn">▶️</div>
+        <div class="reel-overlay">
+          <div class="reel-user">
+            <div class="reel-user-av">${r.uEmoji}</div>
+            <span class="reel-username">${r.user}</span>
+            <button style="background:rgba(255,255,255,.2);border:1px solid #fff;color:#fff;border-radius:6px;padding:4px 12px;font-family:'Nunito',sans-serif;font-weight:700;font-size:.75rem;cursor:pointer;margin-left:8px">Follow</button>
+          </div>
+          <div class="reel-caption">${r.caption}</div>
+        </div>
+        <div class="reel-actions">
+          <div class="reel-action-btn" onclick="event.stopPropagation()">❤️<span>${r.likes}</span></div>
+          <div class="reel-action-btn" onclick="event.stopPropagation()">💬<span>${r.comments}</span></div>
+          <div class="reel-action-btn" onclick="event.stopPropagation()">📤<span>Share</span></div>
+          <div class="reel-action-btn" onclick="event.stopPropagation()">⋮</div>
+        </div>
+      </div>`;
+    c.appendChild(div);
+  });
+}
+
+// ===== MESSAGES =====
+function renderMessages(){
+  const list=document.getElementById('msgsList');
+  list.innerHTML='';
+  MESSAGES.forEach((m,i)=>{
+    const div=document.createElement('div');
+    div.className='msg-item'+(currentChat===i?' active':'');
+    div.innerHTML=`
+      <div class="msg-av-wrap">
+        <div class="msg-av${m.online?' online':''}">${m.emoji}</div>
+      </div>
+      <div class="msg-info">
+        <div class="msg-name">${m.user}</div>
+        <div class="msg-preview">${m.preview}</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+        <div class="msg-time">${m.time}</div>
+        ${m.unread?'<div class="msg-unread-dot"></div>':''}
+      </div>`;
+    div.onclick=()=>openChat(i);
+    list.appendChild(div);
+  });
+}
+
+function openChat(i){
+  currentChat=i;
+  MESSAGES[i].unread=false;
+  renderMessages();
+  const m=MESSAGES[i];
+  const chatWindow=document.getElementById('chatWindow');
+  const chatEmpty=document.getElementById('chatEmpty');
+  chatEmpty.style.display='none';
+  chatWindow.style.display='flex';
+  document.getElementById('chatHeader').innerHTML=`
+    <div class="chat-av">${m.emoji}</div>
+    <div>
+      <div class="chat-name">${m.user}</div>
+      ${m.online?'<div class="chat-status">● Active now</div>':'<div style="font-size:.75rem;color:var(--muted)">Active '+m.time+' ago</div>'}
+    </div>
+    <div style="margin-left:auto;display:flex;gap:16px;font-size:1.3rem">
+      <span style="cursor:pointer">📞</span>
+      <span style="cursor:pointer">📹</span>
+      <span style="cursor:pointer">ℹ️</span>
+    </div>`;
+  renderChatMsgs(i);
+  document.getElementById('chatInput').focus();
+}
+
+function renderChatMsgs(i){
+  const msgs=document.getElementById('chatMsgs');
+  msgs.innerHTML=MESSAGES[i].chat.map(c=>`
+    <div class="chat-bubble ${c.sent?'sent':'recv'}">${c.text}
+      <div style="font-size:.65rem;opacity:.7;margin-top:4px;text-align:${c.sent?'right':'left'}">${c.time}</div>
+    </div>`).join('');
+  msgs.scrollTop=msgs.scrollHeight;
+}
+
+function sendMsg(){
+  const input=document.getElementById('chatInput');
+  const val=input.value.trim();
+  if(!val||currentChat===null)return;
+  const now=new Date();
+  const time=now.getHours()+':'+(now.getMinutes()<10?'0':'')+now.getMinutes()+' '+(now.getHours()<12?'AM':'PM');
+  MESSAGES[currentChat].chat.push({text:val,sent:true,time});
+  MESSAGES[currentChat].preview=val;
+  input.value='';
+  renderChatMsgs(currentChat);
+  renderMessages();
+  // auto reply
+  setTimeout(()=>{
+    const replies=['😊','Got it!','Sounds good!','Haha yes!','Let\'s catch up soon!','❤️'];
+    MESSAGES[currentChat].chat.push({text:replies[Math.floor(Math.random()*replies.length)],sent:false,time});
+    renderChatMsgs(currentChat);
+    renderMessages();
+  },1500);
+}
+function chatKeydown(e){if(e.key==='Enter')sendMsg();}
+
+// ===== NOTIFICATIONS =====
+function renderNotifs(){
+  const c=document.getElementById('notifsContainer');
+  const sections=[
+    {title:'Today',items:NOTIFS.slice(0,4)},
+    {title:'This Week',items:NOTIFS.slice(4)},
+  ];
+  c.innerHTML='';
+  sections.forEach(sec=>{
+    const title=document.createElement('div');
+    title.className='notifs-section-title';
+    title.textContent=sec.title;
+    c.appendChild(title);
+    sec.items.forEach((n,ii)=>{
+      const div=document.createElement('div');
+      div.className='notif-item';
+      div.innerHTML=`
+        <div class="notif-av">${n.emoji}</div>
+        <div class="notif-text"><strong>${n.user}</strong> ${n.text} <span class="notif-time">${n.time}</span></div>
+        ${n.thumb?`<div class="notif-post-thumb">${n.thumb}</div>`:''}
+        ${n.type==='follow'?`<button class="notif-follow-btn${n.followed?' following':''}" onclick="toggleNotifFollow(this)">${n.followed?'Following':'Follow'}</button>`:''}`;
+      c.appendChild(div);
+    });
+  });
+}
+function toggleNotifFollow(btn){
+  btn.classList.toggle('following');
+  btn.textContent=btn.classList.contains('following')?'Following':'Follow';
+}
+
+// ===== PROFILE =====
+function renderProfile(){
+  const g=document.getElementById('profileGrid');
+  g.innerHTML='';
+  const cells=[...EXPLORE_EMOJIS].slice(0,POSTS.length+8);
+  POSTS.forEach((p,i)=>{
+    const div=document.createElement('div');
+    div.className='profile-cell';
+    div.innerHTML=`<span>${p.img}</span><div style="position:absolute;inset:0;background:rgba(0,0,0,0);display:flex;align-items:center;justify-content:center;gap:12px;color:#fff;font-size:.85rem;opacity:0;transition:all .2s">❤️${p.likes} 💬${p.comments.length}</div>`;
+    div.onmouseenter=e=>e.currentTarget.querySelector('div').style.cssText='position:absolute;inset:0;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;gap:12px;color:#fff;font-size:.85rem;opacity:1;transition:all .2s';
+    div.onmouseleave=e=>e.currentTarget.querySelector('div').style.cssText='position:absolute;inset:0;background:rgba(0,0,0,0);display:flex;align-items:center;justify-content:center;gap:12px;color:#fff;font-size:.85rem;opacity:0;transition:all .2s';
+    div.onclick=()=>openPostModal(i);
+    g.appendChild(div);
+  });
+}
+function switchProfileTab(el,tab){
+  document.querySelectorAll('.profile-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  if(tab==='grid')renderProfile();
+  else{
+    const g=document.getElementById('profileGrid');
+    g.innerHTML='<div style="grid-column:span 3;text-align:center;padding:40px;color:var(--muted);font-size:.88rem">No '+tab+' yet</div>';
+  }
+}
+
+// ===== SETTINGS =====
+function toggleSwitch(el){el.classList.toggle('on');}
+function toggleDark(){
+  darkMode=!darkMode;
+  document.body.classList.toggle('dark',darkMode);
+  const dt=document.getElementById('darkToggle');
+  if(dt)dt.classList.toggle('on',darkMode);
+  const dl=document.getElementById('darkLabel');
+  if(dl)dl.textContent=darkMode?'Light mode':'Dark mode';
+}
+function toggleMoreMenu(){
+  document.getElementById('moreMenu').classList.toggle('show');
+}
+document.addEventListener('click',e=>{
+  const mm=document.getElementById('moreMenu');
+  if(mm.classList.contains('show')&&!mm.contains(e.target)&&!e.target.closest('.nav-item'))mm.classList.remove('show');
+});
+</script>
+</body>
+</html>
